@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AturDuit - Beranda</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #198754;
+      --primary-dark: #146c43;
+      --content-max-width: 1140px;
+    }
+    body {
+      transition: background 0.3s, color 0.3s;
+      margin: 0;
+    }
+    .sidebar {
+      width: 250px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      transition: width 0.3s, background-color 0.3s;
+      overflow-x: hidden;
+      z-index: 1000;
+    }
+    .sidebar.collapsed {
+      width: 80px;
+    }
+    .sidebar h4 {
+      text-align: center;
+      color: var(--primary-color);
+      transition: opacity 0.3s;
+    }
+    .sidebar.collapsed h4 {
+      opacity: 0;
+      height: 0;
+      overflow: hidden;
+    }
+    .sidebar .nav-link {
+      color: #333;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+    }
+    .sidebar .nav-link.active {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    .sidebar .nav-link span {
+      transition: opacity 0.3s, margin-left 0.3s;
+    }
+    .sidebar.collapsed .nav-link span {
+      opacity: 0;
+      margin-left: -999px;
+    }
+    .main-content {
+      margin-left: 250px;
+      transition: margin-left 0.3s;
+    }
+    .main-content.shifted {
+      margin-left: 80px;
+    }
+    .navbar {
+      transition: background-color 0.3s;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .content-wrapper {
+      padding-top: 70px;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: var(--content-max-width);
+    }
+    .navbar-brand {
+      color: var(--primary-color);
+    }
+    .btn-primary {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      border-color: var(--primary-dark);
+    }
+    .dropdown-menu {
+      min-width: 200px;
+    }
+    .profile-dropdown {
+      position: relative;
+    }
+    .profile-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 40px;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 0.5rem;
+      overflow: hidden;
+      z-index: 999;
+    }
+    .profile-content.show {
+      display: block;
+    }
+    body.bg-dark .sidebar {
+      background-color: #343a40 !important;
+    }
+    body.bg-dark .sidebar .nav-link {
+      color: #ccc;
+    }
+    body.bg-dark .sidebar .nav-link.active {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    body.bg-dark .navbar {
+      background-color: #212529 !important;
+    }
+    body.bg-dark .navbar .navbar-brand {
+      color: #fff;
+    }
+    body.bg-dark .profile-content {
+      background-color: #343a40;
+      color: white;
+    }
+    body.bg-dark .list-group-item {
+    background-color: #343a40;
+    color: white;
+    border-color: #495057;
+  }
+  body.bg-dark input[type="search"].form-control {
+    background-color: #343a40;
+    color: white;
+    border-color: #495057;
+  }
+  body.bg-dark input[type="search"].form-control::placeholder {
+    color: #bbb;
+  }
+</style>
+</head>
+<body class="bg-light">
+  <div class="d-flex">
+    <div id="sidebar" class="sidebar d-flex flex-column p-3">
+      <h4 class="text-center">AturDuit</h4>
+      <hr>
+      <ul class="nav nav-pills flex-column">
+        <li class="nav-item"><a href="beranda.html" class="nav-link active"><i class="bi bi-house-door"></i> <span class="ms-2">Beranda</span></a></li>
+        <li class="nav-item"><a href="transaksi.html" class="nav-link"><i class="bi bi-cash-stack"></i> <span class="ms-2">Transaksi</span></a></li>
+        <li class="nav-item"><a href="analisis.html" class="nav-link"><i class="bi bi-graph-up"></i> <span class="ms-2">Analisis</span></a></li>
+        <li class="nav-item"><a href="tambah.html" class="nav-link"><i class="bi bi-plus-square"></i> <span class="ms-2">Tambah Baru</span></a></li>
+        <li class="nav-item"><a href="chat.html" class="nav-link active"><i class="bi bi-robot"></i> <span class="ms-2">AI</span></a></li>
+        <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-gear"></i> <span class="ms-2">Pengaturan</span></a></li>
+      </ul>
+      <button class="btn btn-sm btn-outline-secondary mt-auto" onclick="toggleSidebar()">
+        <i id="toggleIcon" class="bi bi-chevron-double-left"></i>
+      </button>
+    </div>
+
+    <div id="main" class="main-content flex-grow-1">
+      <nav class="navbar navbar-light bg-white shadow-sm px-3 d-flex justify-content-between">
+        <span class="navbar-brand mb-0 h5"></span>
+        <div class="d-flex align-items-center gap-3">
+          <input class="form-control form-control-sm" type="search" placeholder="Search">
+          <button class="btn btn-outline-secondary" onclick="toggleDarkMode()"><i class="bi bi-moon"></i></button>
+          <div class="profile-dropdown position-relative">
+            <i class="bi bi-person-circle fs-4 cursor-pointer" onclick="toggleProfile()"></i>
+            <div id="profileMenu" class="profile-content p-3">
+              <p class="mb-2">Halo, Pengguna</p>
+              <button class="btn btn-sm btn-danger w-100">Logout</button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div class="content-wrapper">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h4>Selamat datang kembali!</h4>
+          <button class="btn btn-primary">+ Tambah Transaksi</button>
+        </div>
+
+        <div class="row g-3 mb-4">
+          <div class="col-md-3">
+            <div class="card text-white bg-success">
+              <div class="card-body">
+                <h6><i class="bi bi-wallet2 me-2"></i>Saldo</h6>
+                <h4>Rp 12.000.000</h4>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-white bg-primary">
+              <div class="card-body">
+                <h6><i class="bi bi-arrow-down-circle me-2"></i>Pemasukan</h6>
+                <h4>Rp 5.000.000</h4>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-white bg-danger">
+              <div class="card-body">
+                <h6><i class="bi bi-arrow-up-circle me-2"></i>Pengeluaran</h6>
+                <h4>Rp 3.000.000</h4>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card text-dark bg-warning">
+              <div class="card-body">
+                <h6><i class="bi bi-piggy-bank me-2"></i>Tingkat Tabungan</h6>
+                <h4>40%</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <h5>Transaksi Terbaru</h5>
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Gaji Bulanan
+              <span class="badge bg-success">+ Rp 5.000.000</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Belanja
+              <span class="badge bg-danger">- Rp 1.500.000</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Makan
+              <span class="badge bg-danger">- Rp 300.000</span>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h5>Grafik Keuangan</h5>
+          <canvas id="chart" height="100"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const main = document.getElementById('main');
+      const icon = document.getElementById('toggleIcon');
+      sidebar.classList.toggle('collapsed');
+      main.classList.toggle('shifted');
+      icon.classList.toggle('bi-chevron-double-left');
+      icon.classList.toggle('bi-chevron-double-right');
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('bg-light');
+      document.body.classList.toggle('bg-dark');
+      document.body.classList.toggle('text-light');
+    }
+
+    function toggleProfile() {
+      const menu = document.getElementById('profileMenu');
+      menu.classList.toggle('show');
+    }
+
+    const ctx = document.getElementById('chart');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei'],
+        datasets: [{
+          label: 'Saldo Bulanan',
+          data: [12000000, 12500000, 11000000, 11500000, 13000000],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AturDuit - Tambah Transaksi</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #198754;
+      --primary-dark: #146c43;
+      --content-max-width: 1140px;
+    }
+    body {
+      transition: background 0.3s, color 0.3s;
+      margin: 0;
+    }
+    .sidebar {
+      width: 250px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      transition: width 0.3s, background-color 0.3s;
+      overflow-x: hidden;
+      z-index: 1000;
+    }
+    .sidebar.collapsed {
+      width: 80px;
+    }
+    .sidebar h4 {
+      text-align: center;
+      color: var(--primary-color);
+      transition: opacity 0.3s;
+    }
+    .sidebar.collapsed h4 {
+      opacity: 0;
+      height: 0;
+      overflow: hidden;
+    }
+    .sidebar .nav-link {
+      color: #333;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+    }
+    .sidebar .nav-link.active {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    .sidebar .nav-link span {
+      transition: opacity 0.3s, margin-left 0.3s;
+    }
+    .sidebar.collapsed .nav-link span {
+      opacity: 0;
+      margin-left: -999px;
+    }
+    .main-content {
+      margin-left: 250px;
+      transition: margin-left 0.3s;
+    }
+    .main-content.shifted {
+      margin-left: 80px;
+    }
+    .navbar {
+      transition: background-color 0.3s;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .content-wrapper {
+      padding-top: 70px;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: var(--content-max-width);
+    }
+    .navbar-brand {
+      color: var(--primary-color);
+    }
+    .btn-primary {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      border-color: var(--primary-dark);
+    }
+    .card {
+      transition: background-color 0.3s;
+    }
+    body.bg-dark .card {
+      background-color: #343a40;
+      color: white;
+    }
+    body.bg-dark .form-control {
+      background-color: #343a40;
+      color: white;
+      border-color: #495057;
+    }
+    body.bg-dark .form-control::placeholder {
+      color: #bbb;
+    }
+    body.bg-dark .sidebar {
+      background-color: #343a40 !important;
+    }
+    body.bg-dark .sidebar .nav-link {
+      color: #ccc;
+    }
+    body.bg-dark .sidebar .nav-link.active {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    body.bg-dark .navbar {
+      background-color: #212529 !important;
+    }
+    body.bg-dark .navbar .navbar-brand {
+      color: #fff;
+    }
+    body.bg-dark .form-select {
+    background-color: #343a40;
+    color: white;
+    border-color: #495057;
+  }
+  body.bg-dark .form-select option {
+    background-color: #343a40;
+    color: white;
+  }
+</style>
+</head>
+<body class="bg-light">
+  <div class="d-flex">
+    <div id="sidebar" class="sidebar d-flex flex-column p-3">
+      <h4 class="text-center">AturDuit</h4>
+      <hr>
+      <ul class="nav nav-pills flex-column">
+        <li class="nav-item"><a href="beranda.html" class="nav-link"><i class="bi bi-house-door"></i> <span class="ms-2">Beranda</span></a></li>
+        <li class="nav-item"><a href="transaksi.html" class="nav-link"><i class="bi bi-cash-stack"></i> <span class="ms-2">Transaksi</span></a></li>
+        <li class="nav-item"><a href="analisis.html" class="nav-link"><i class="bi bi-graph-up"></i> <span class="ms-2">Analisis</span></a></li>
+        <li class="nav-item"><a href="tambah.html" class="nav-link active"><i class="bi bi-plus-square"></i> <span class="ms-2">Tambah Baru</span></a></li>
+        <li class="nav-item"><a href="chat.html" class="nav-link"><i class="bi bi-robot"></i> <span class="ms-2">AI</span></a></li>
+        <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-gear"></i> <span class="ms-2">Pengaturan</span></a></li>
+      </ul>
+      <button class="btn btn-sm btn-outline-secondary mt-auto" onclick="toggleSidebar()">
+        <i id="toggleIcon" class="bi bi-chevron-double-left"></i>
+      </button>
+    </div>
+
+    <div id="main" class="main-content flex-grow-1">
+      <nav class="navbar navbar-light shadow-sm px-3 d-flex justify-content-between">
+        <span class="navbar-brand mb-0 h5">Tambah Transaksi</span>
+        <div class="d-flex align-items-center gap-3">
+          <input class="form-control form-control-sm" type="search" placeholder="Search">
+          <button class="btn btn-outline-secondary" onclick="toggleDarkMode()"><i class="bi bi-moon"></i></button>
+        </div>
+      </nav>
+
+      <div class="content-wrapper">
+        <div class="card mt-4">
+          <div class="card-body">
+            <h5 class="card-title">Form Tambah Transaksi</h5>
+            <form>
+              <div class="mb-3">
+                <label for="tanggal" class="form-label">Tanggal</label>
+                <input type="date" class="form-control" id="tanggal">
+              </div>
+              <div class="mb-3">
+                <label for="deskripsi" class="form-label">Deskripsi</label>
+                <input type="text" class="form-control" id="deskripsi" placeholder="Contoh: Belanja Bulanan">
+              </div>
+              <div class="mb-3">
+                <label for="kategori" class="form-label">Kategori</label>
+                <select class="form-select" id="kategori">
+                  <option value="">Pilih Kategori</option>
+                  <option value="makanan">Makanan</option>
+                  <option value="transportasi">Transportasi</option>
+                  <option value="hiburan">Hiburan</option>
+                  <option value="kesehatan">Kesehatan</option>
+                  <option value="lainnya">Lainnya</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="jumlah" class="form-label">Jumlah</label>
+                <input type="number" class="form-control" id="jumlah" placeholder="Contoh: 150000">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Tipe Transaksi</label>
+                <div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="tipe" id="pemasukan" value="pemasukan">
+                    <label class="form-check-label" for="pemasukan">Pemasukan</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="tipe" id="pengeluaran" value="pengeluaran">
+                    <label class="form-check-label" for="pengeluaran">Pengeluaran</label>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary">Simpan Transaksi</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('collapsed');
+      document.getElementById('main').classList.toggle('shifted');
+      document.getElementById('toggleIcon').classList.toggle('bi-chevron-double-left');
+      document.getElementById('toggleIcon').classList.toggle('bi-chevron-double-right');
+    }
+    function toggleDarkMode() {
+      document.body.classList.toggle('bg-light');
+      document.body.classList.toggle('bg-dark');
+      document.body.classList.toggle('text-light');
+    }
+  </script>
+</body>
+</html>
